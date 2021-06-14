@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data:cached
+    networks:
+      - webnet
+  
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm start
+    tty: true
+    environment:
+      DB_HOST: host.docker.internal
+      DB_USER: postgres
+      DB_PASSWORD: root
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./:/app/:cached
+    depends_on:
+      - "postgres"
+    networks:
+      - webnet
+
+volumes:
+  db-data:
+
+networks:
+  webnet:

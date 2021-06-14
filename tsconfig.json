@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noEmit": true,
+    "typeRoots": ["backend/@types", "./node_modules/@types"]
+  },
+  "files": ["./backend/index.ts"],
+  "include": ["./backend"]
+}
